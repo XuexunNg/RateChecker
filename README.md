@@ -52,12 +52,12 @@ Example
 ```
 This will return rates between Jan 2018 and Dec 2018
 
-### Get rates between a certain period and indicate if bank rates are lower than of financial companies rates
+### Get rates between a certain period and indicate if bank rates are lower then financial companies rates
  Example
 ```
  .\RatesChecker.exe compare -f Jan-2017 -t Dec-2018
 ```
-This will return bank interest rates and the financial center interest rate between Jan 2017 and Dec 2018. The results will include a attribute called "FC Higher Rate" which display true if the financial center interest rate is higher than bank rates or false if the financial center interest rate is lower than bank rates
+This will return bank interest rates and the financial center interest rate between Jan 2017 and Dec 2018. The results will include a attribute called "FC Higher Rate" which display true if the financial companies interest rate is higher than bank rates or false if the financial companies interest rate is lower than bank rates
 
 ### Get average rates of bank rates and financial companies rates between a certain period
  Example
