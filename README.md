@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/XuexunNg/RatesChecker.svg?branch=master)](https://travis-ci.org/XuexunNg/RatesChecker)
+
 # RateChecker
 RateChecker is a command line program that compare and search interests rate for banks and financial center within a given period of time. This project is written in C# 7.3 using the .net core 2.1 framework. 
 
@@ -6,7 +8,7 @@ RateChecker is a command line program that compare and search interests rate for
 ### Repository Pattern
 https://docs.microsoft.com/en-us/previous-versions/msp-n-p/ff649690(v=pandp.10)
 
-The repository pattern separates the data access logic away from the business logic layer. The business logic layer will not be concern where the data is from. It can be from persistent datastore or an API from MAS. This will allows flexibility for furture changes (the data source can be changed to a SQL database wthout affecting the entire business logic). This pattern also provides a "single source of truth" and one single point of entry to the data source which makes maintainability easier. 
+The repository pattern separates the data access logic away from the business logic layer. The business logic layer will not be concern where the data is from. It can be from persistent datastore or an API from MAS. This will allows flexibility for furture changes (the data source can be changed to a SQL database without affecting the entire business logic). This pattern also provides a "single source of truth" and one single point of entry to the data source which makes maintainability easier. 
 
 But most importantly, this pattern allows me to "inject" a mock data source to my service layer to create accurate and comprehensive unit tests. You can see this pattern in place under the Data folder. There is a IRepo interface class which I can use to inject into the service layer.
 
@@ -35,14 +37,26 @@ Currently, RateChecker is only supported on Windows platform. Although, .net cor
 
 Requires internet connection to run 
 
-### Installing
 
-1. Download the release build from here https://github.com/XuexunNg/RatesChecker/releases
+## Building RateChecker
+* Download and install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
 
-2. Unzip the folder
+* Download repo to computer
+
+* Open powershell and navigate to the folder containing RatesChecker.sln
+
+* Enter command "dotnet restore" (https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-restore?tabs=netcore2x)
+
+* Enter command "dotnet build" (https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build?tabs=netcore2x)
+
 
 ## Running RateChecker
-Open powershell and navigate to the RateChecker folder.
+
+* Download the release build from here https://github.com/XuexunNg/RatesChecker/releases
+
+* Unzip folder
+
+* Open powershell and navigate to the RateChecker folder.
 
 ### Get rates between a certain period
 Enter the following command. The date format is in MMM-yyyy (i.e Jan-2018). -f is the from Date and -t is the to Date
@@ -78,16 +92,17 @@ I use linear regression to calculate the slope of the trend. This command will r
  
 
 ## Run Unit Test
-Install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
+* Download and install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
 
-Download the repo
+* Download the repo
 
-Navigate to XUnitText Folder
+* Navigate to XUnitText Folder
 
-Type in the command 
+* Type in the command 
 ```
 dotnet test
 ```
+Note: Travis CI server will also run the unit tests on every commit to master branch
 
 ## Built With
 
