@@ -2,7 +2,7 @@
   "profiles": {
     "RatesChecker": {
       "commandName": "Project",
-      "commandLineArgs": "trend -f Jan-2018 -t Mar-2018"
+      "commandLineArgs": "period -f 01-2018 -t 11-2018"
     }
   }
 }
