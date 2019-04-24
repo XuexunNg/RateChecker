@@ -43,6 +43,18 @@ Requires internet connection to run
 
 2. Unzip the folder
 
+## Building RateChecker
+* Download and install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
+
+* Download repo to computer
+
+* Open powershell and navigate to the folder containing RatesChecker.sln
+
+* Enter command "dotnet restore" (https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-restore?tabs=netcore2x)
+
+* Enter command "dotnet build" (https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build?tabs=netcore2x)
+
+
 ## Running RateChecker
 Open powershell and navigate to the RateChecker folder.
 
@@ -80,17 +92,17 @@ I use linear regression to calculate the slope of the trend. This command will r
  
 
 ## Run Unit Test
-Install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
+* Download and install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
 
-Download the repo
+* Download the repo
 
-Navigate to XUnitText Folder
+* Navigate to XUnitText Folder
 
-Type in the command 
+* Type in the command 
 ```
 dotnet test
 ```
-Travis CI server will also run the unit tests on every commit to master branch
+Note: Travis CI server will also run the unit tests on every commit to master branch
 
 ## Built With
 
