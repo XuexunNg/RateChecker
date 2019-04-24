@@ -1,5 +1,5 @@
 # RateChecker
-To compare and search interests rate for banks and financial center within a given period of time. This project is written with C# 7.3 using the .net core 2.1 framework. 
+RateChecker is a command line program that compare and search interests rate for banks and financial center within a given period of time. This project is written in C# 7.3 using the .net core 2.1 framework. 
 
 ## Design Pattern 
 
@@ -9,91 +9,94 @@ The repository pattern separates the data access logic away from the business lo
 
 But most importantly, this pattern allows me to "inject" a mock data source to my service layer to create accurate and comprehensive unit tests. You can see this pattern in place under the Data folder. There is a IRepo interface class which I can use to inject into the service layer.
 
-###Dependency Injection
+### Service Layer Pattern
+https://en.wikipedia.org/wiki/Service_layer_pattern
+
+The service layer for this project serves as the business logic layer. The service layer pattern is loosely coupled with the repo layer. This will allows us to create unit tests without accessing any data source and provide accurate test for the business logic. 
+
+### Dependency Injection
 https://en.wikipedia.org/wiki/Dependency_injection
 
-In conjunction with the repository pattern, the dependency injection design pattern is applied to inject the repo interface class to the service layer. 
+In conjunction with the repository pattern, the dependency injection design pattern is applied to inject the repo interface class to the service layer. I use method dependency injection which can be seen in Program.cs. Using dependency injection, I can mock my repo interface in the unit tests so that I can create tests for different set of data.
+
+### MVVM
+https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel
+
+The entire project is created based on MVVM design pattern. I created the ViewModel layer to serve as a DTO between the layers. Also by having a separation between the different parts of an app's, it brings a level of structure and uniformity to the code. It's easy to see where things should go or where they're likely to be. 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Currently, RateChecker is only supported on Windows platform. Although, .net core allows me to publish a cross platform app. The app has not been tested on other platforms other than Windows.
 
-```
-Give examples
-```
+Requires internet connection to run 
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+1. Download the release build from here https://github.com/XuexunNg/RatesChecker/releases
 
-Say what the step will be
+2. Unzip the folder
 
+## Running RateChecker
+Open powershell and navigate to the RateChecker folder.
+
+### Get rates between a certain period
+Enter the following command. The date format is in MMM-yyyy (i.e Jan-2018). -f is the from Date and -t is the to Date
+Example
 ```
-Give the example
+.\RatesChecker.exe period -f Jan-2018 -t Dec-2018
 ```
+This will return rates between Jan 2018 and Dec 2018
 
-And repeat
-
+### Get rates between a certain period and indicate if bank rates are lower than fc rates
+ Example
 ```
-until finished
+ .\RatesChecker.exe compare -f Jan-2017 -t Dec-2018
 ```
+This will return bank interest rates and the financial center interest rate between Jan 2017 and Dec 2018. The results will include a attribute called "FC Higher Rate" which display true if the financial center interest rate is higher than bank rates or false if the financial center interest rate is lower than bank rates
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+### Get average rates of bank rates and fc rates between a certain period
+ Example
 ```
-Give an example
+.\RatesChecker.exe average -f Jan-2018 -t Dec-2018
 ```
+This command will return two values. The average FC rates and the average Bank rates within the given period
 
-### And coding style tests
-
-Explain what these tests test and why
-
+### Get trend of interest rate within a certain period
+ Example
 ```
-Give an example
+.\RatesChecker.exe trend -f Jan-2014 -t Dec-2018
 ```
+I use linear regression to calculate the slope of the trend. This command will return one of the following values:
+- upward
+- downward
+- stable
+ 
 
-## Deployment
+## Run Unit Test
+Install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
 
-Add additional notes about how to deploy this on a live system
+Download the repo
+
+Navigate to XUnitText Folder
+
+Type in the command 
+```
+dotnet test
+```
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* .Net Core 2.1
+* MSBuild
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Eric Ng** 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
