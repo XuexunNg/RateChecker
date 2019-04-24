@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/XuexunNg/RatesChecker.svg?branch=master)](https://travis-ci.org/XuexunNg/RatesChecker)
+
 # RateChecker
 RateChecker is a command line program that compare and search interests rate for banks and financial center within a given period of time. This project is written in C# 7.3 using the .net core 2.1 framework. 
 
