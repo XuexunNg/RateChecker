@@ -37,11 +37,6 @@ Currently, RateChecker is only supported on Windows platform. Although, .net cor
 
 Requires internet connection to run 
 
-### Installing
-
-1. Download the release build from here https://github.com/XuexunNg/RatesChecker/releases
-
-2. Unzip the folder
 
 ## Building RateChecker
 * Download and install .net core 2.1 or above SDK https://dotnet.microsoft.com/download/dotnet-core/2.2
@@ -56,7 +51,12 @@ Requires internet connection to run
 
 
 ## Running RateChecker
-Open powershell and navigate to the RateChecker folder.
+
+* Download the release build from here https://github.com/XuexunNg/RatesChecker/releases
+
+* Unzip folder
+
+* Open powershell and navigate to the RateChecker folder.
 
 ### Get rates between a certain period
 Enter the following command. The date format is in MMM-yyyy (i.e Jan-2018). -f is the from Date and -t is the to Date
