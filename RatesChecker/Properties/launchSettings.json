@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RatesChecker": {
+      "commandName": "Project",
+      "commandLineArgs": "trend -f Jan-2018 -t Mar-2018"
+    }
+  }
+}
