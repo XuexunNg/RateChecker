@@ -30,7 +30,7 @@ namespace XUnitTest
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetHighestRateMonth(mock.Object, It.IsAny<string>(), It.IsAny<string>()); 
+            var results = await svc.GetRates(mock.Object, It.IsAny<string>(), It.IsAny<string>()); 
             var result = results.Count;
 
             //assert
