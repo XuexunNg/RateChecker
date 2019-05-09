@@ -20,7 +20,7 @@ namespace XUnitTest
         public async void ShouldReturnRecords_GetRates()
         {
             //arrange
-            RateServices svc = new RateServices();
+           
             var mock = new Mock<IRepo>();
             List<RateViewModel> vm = new List<RateViewModel>();
             vm.Add(new RateViewModel { end_of_month = "2018-01", banks_savings_deposits = 0.16, fc_savings_deposits = 0.17 });
@@ -30,7 +30,8 @@ namespace XUnitTest
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetRates(mock.Object, It.IsAny<string>(), It.IsAny<string>()); 
+            RateServices svc = new RateServices(mock.Object);
+            var results = await svc.GetRates(It.IsAny<string>(), It.IsAny<string>()); 
             var result = results.Count;
 
             //assert
@@ -43,14 +44,15 @@ namespace XUnitTest
         public async void ShouldReturnTrue_IfFcRateisHigher()
         {
             //arrange
-            RateServices svc = new RateServices();
+            
             var mock = new Mock<IRepo>();
             List<RateViewModel> vm = new List<RateViewModel>();
             vm.Add(new RateViewModel { end_of_month="2019-04", banks_savings_deposits = 0.1, fc_savings_deposits = 0.2});           
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetHighestRateMonth(mock.Object, It.IsAny<string>(), It.IsAny<string>()); //Pass in the mock repo into the method
+            RateServices svc = new RateServices(mock.Object);
+            var results = await svc.GetHighestRateMonth(It.IsAny<string>(), It.IsAny<string>()); //Pass in the mock repo into the method
             var result = results.Find(c => c.end_of_month == "2019-04");
 
             //assert
@@ -61,15 +63,15 @@ namespace XUnitTest
         [Fact]
         public async void ShouldReturnFalse_IfFcRateIsLower()
         {
-            //arrange
-            RateServices svc = new RateServices();
+            //arrange            
             var mock = new Mock<IRepo>();
             List<RateViewModel> vm = new List<RateViewModel>();
             vm.Add(new RateViewModel { end_of_month = "2019-04", banks_savings_deposits = 0.23, fc_savings_deposits = 0.12 });
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetHighestRateMonth(mock.Object, It.IsAny<string>(), It.IsAny<string>()); 
+            RateServices svc = new RateServices(mock.Object);
+            var results = await svc.GetHighestRateMonth(It.IsAny<string>(), It.IsAny<string>()); 
             var result = results.Find(c => c.end_of_month == "2019-04");
 
             //assert
@@ -81,7 +83,7 @@ namespace XUnitTest
         public async void ShouldReturnTrue_GetAverageRate()
         {
             //arrange
-            RateServices svc = new RateServices();
+            
             var mock = new Mock<IRepo>();
             List<RateViewModel> vm = new List<RateViewModel>();
             vm.Add(new RateViewModel { end_of_month = "2018-01", banks_savings_deposits = 0.12, fc_savings_deposits = 0.16 });
@@ -92,7 +94,8 @@ namespace XUnitTest
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetAverageRates(mock.Object, It.IsAny<string>(), It.IsAny<string>());
+            RateServices svc = new RateServices(mock.Object);
+            var results = await svc.GetAverageRates(It.IsAny<string>(), It.IsAny<string>());
             var averageBankRate = results.average_bank_rate;
             var averageFcRate = results.average_fc_rate;
 
@@ -106,8 +109,7 @@ namespace XUnitTest
         [Fact]
         public async void ShouldReturnDownTrend_IfBankRatesAreDown()
         {
-            //arrange
-            RateServices svc = new RateServices();
+            //arrange            
             var mock = new Mock<IRepo>();
             List<RateViewModel> vm = new List<RateViewModel>();
             vm.Add(new RateViewModel { end_of_month = "2018-01", banks_savings_deposits = 0.20 });
@@ -118,7 +120,8 @@ namespace XUnitTest
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetTrend(mock.Object, It.IsAny<string>(), It.IsAny<string>());
+            RateServices svc = new RateServices(mock.Object);
+            var results = await svc.GetTrend(It.IsAny<string>(), It.IsAny<string>());
 
             //assert
             Assert.Equal("downtrend", results);
@@ -129,8 +132,7 @@ namespace XUnitTest
         [Fact]
         public async void ShouldReturnUpTrend_IfBankRatesAreUp()
         {
-            //arrange
-            RateServices svc = new RateServices();
+            //arrange            
             var mock = new Mock<IRepo>();
             List<RateViewModel> vm = new List<RateViewModel>();
             vm.Add(new RateViewModel { end_of_month = "2018-01", banks_savings_deposits = 0.10 });
@@ -141,7 +143,8 @@ namespace XUnitTest
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetTrend(mock.Object, It.IsAny<string>(), It.IsAny<string>());
+            RateServices svc = new RateServices(mock.Object);
+            var results = await svc.GetTrend(It.IsAny<string>(), It.IsAny<string>());
 
             //assert
             Assert.Equal("uptrend", results);
@@ -153,7 +156,6 @@ namespace XUnitTest
         public async void ShouldReturnStableTrend_IfBankRatesAreStable()
         {
             //arrange
-            RateServices svc = new RateServices();
             var mock = new Mock<IRepo>();
             List<RateViewModel> vm = new List<RateViewModel>();
             vm.Add(new RateViewModel { end_of_month = "2018-01", banks_savings_deposits = 0.14 });
@@ -164,7 +166,8 @@ namespace XUnitTest
             mock.Setup(foo => foo.HttpRequestRates(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(vm);
 
             //act
-            var results = await svc.GetTrend(mock.Object, It.IsAny<string>(), It.IsAny<string>());
+            RateServices svc = new RateServices(mock.Object);
+            var results = await svc.GetTrend(It.IsAny<string>(), It.IsAny<string>());
 
             //assert
             Assert.Equal("stable", results);

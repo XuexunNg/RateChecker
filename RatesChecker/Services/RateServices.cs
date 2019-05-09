@@ -1,4 +1,6 @@
-﻿using RatesChecker.Data.Interface;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RatesChecker.Data;
+using RatesChecker.Data.Interface;
 using RatesChecker.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -9,14 +11,21 @@ namespace RatesChecker.Services
 {
     public class RateServices
     {
-        public async Task<List<RateViewModel>> GetRates(IRepo repo, string fromDate, string toDate)
-        {
-            return await repo.HttpRequestRates(fromDate, toDate);
+        private readonly IRepo _repo;
+        
+        public RateServices(IRepo repo)
+        {            
+            _repo = repo;            
         }
 
-        public async Task<List<RateViewModel>> GetHighestRateMonth(IRepo repo, string fromDate, string toDate)
+        public async Task<List<RateViewModel>> GetRates(string fromDate, string toDate)
         {
-            var rateList = await repo.HttpRequestRates(fromDate, toDate);
+            return await _repo.HttpRequestRates(fromDate, toDate);
+        }
+
+        public async Task<List<RateViewModel>> GetHighestRateMonth(string fromDate, string toDate)
+        {
+            var rateList = await _repo.HttpRequestRates(fromDate, toDate);
             foreach (var rate in rateList)
             {
                 rate.fc_rate_higher = rate.fc_savings_deposits > rate.banks_savings_deposits ? true : false;
@@ -25,9 +34,9 @@ namespace RatesChecker.Services
             return rateList;
         }
 
-        public async Task<AverageRateViewModel> GetAverageRates(IRepo repo, string fromDate, string toDate)
+        public async Task<AverageRateViewModel> GetAverageRates(string fromDate, string toDate)
         {
-            var rateList = await repo.HttpRequestRates(fromDate, toDate);
+            var rateList = await _repo.HttpRequestRates(fromDate, toDate);
 
             double totalFcRates = 0;
             double totalBankRates = 0;
@@ -45,9 +54,9 @@ namespace RatesChecker.Services
             return vm;
         }
 
-        public async Task<string> GetTrend(IRepo repo, string fromDate, string toDate)
+        public async Task<string> GetTrend(string fromDate, string toDate)
         {
-            var rateList = await repo.HttpRequestRates(fromDate, toDate);
+            var rateList = await _repo.HttpRequestRates(fromDate, toDate);
 
             //calculate the slope using Linear Regression
             double counter = 1;

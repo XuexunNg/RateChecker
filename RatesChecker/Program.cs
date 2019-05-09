@@ -57,12 +57,13 @@ namespace RatesChecker
         static void Main(string[] args)
         {
             var serviceProvider = new ServiceCollection()
-            .AddTransient<IRepo, Repo>()
-            .BuildServiceProvider();
+           .AddTransient<IRepo, Repo>()
+           .BuildServiceProvider();
 
             //Set up DI
             var repo = serviceProvider.GetService<IRepo>();
-            RateServices rateSvc = new RateServices();
+
+            RateServices rateSvc = new RateServices(repo);
 
             Parser.Default.ParseArguments<Period, Compare, Average, Trend>(args).MapResult(
                 (Period opts) => {
@@ -70,7 +71,7 @@ namespace RatesChecker
                     var fromDate = Helper.convertDate(opts.fromDate);
                     var toDate = Helper.convertDate(opts.toDate);
                    
-                    var rateList = rateSvc.GetRates(repo, fromDate, toDate).Result;
+                    var rateList = rateSvc.GetRates(fromDate, toDate).Result;
                     RatesView view = new RatesView();
                     view.DisplayRates(rateList);
 
@@ -81,7 +82,7 @@ namespace RatesChecker
                     var fromDate = Helper.convertDate(opts.fromDate);
                     var toDate = Helper.convertDate(opts.toDate);
 
-                    var rateList = rateSvc.GetHighestRateMonth(repo, fromDate, toDate).Result;
+                    var rateList = rateSvc.GetHighestRateMonth(fromDate, toDate).Result;
                     RatesView view = new RatesView();
                     view.DisplayRates(rateList);
                     
@@ -93,7 +94,7 @@ namespace RatesChecker
                     var fromDate = Helper.convertDate(opts.fromDate);
                     var toDate = Helper.convertDate(opts.toDate);
 
-                    var averageRates = rateSvc.GetAverageRates(repo, fromDate, toDate).Result;
+                    var averageRates = rateSvc.GetAverageRates(fromDate, toDate).Result;
 
                     Console.WriteLine($"Average FC Rates:{averageRates.average_fc_rate}%");
                     Console.WriteLine($"Average Bank Rates:{averageRates.average_bank_rate}%");
@@ -106,7 +107,7 @@ namespace RatesChecker
                     var fromDate = Helper.convertDate(opts.fromDate);
                     var toDate = Helper.convertDate(opts.toDate);
 
-                    var trend = rateSvc.GetTrend(repo, fromDate, toDate).Result;
+                    var trend = rateSvc.GetTrend(fromDate, toDate).Result;
 
                     Console.WriteLine($"The trend for the bank rates within the selected period is {trend}");
 
