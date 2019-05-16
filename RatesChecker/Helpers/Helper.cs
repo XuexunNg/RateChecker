@@ -11,9 +11,11 @@ namespace RatesChecker.Helpers
         {
             try
             {
-                var convertedDate = DateTime.ParseExact(date, "MMM-yyyy", CultureInfo.InvariantCulture);
-                
-                if (convertedDate >= DateTime.Now)
+                if (String.IsNullOrEmpty(date)) { date = DateTime.Now.AddMonths(-1).ToString("MMM-yyyy"); };
+
+                var convertedDate = DateTime.ParseExact(date, "MMM-yyyy", CultureInfo.InvariantCulture);               
+
+                if (convertedDate > DateTime.Now)
                 {
                     throw new ArgumentException("Date cannot be later than today date");
                 }

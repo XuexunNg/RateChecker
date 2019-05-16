@@ -21,7 +21,7 @@ namespace RatesChecker.Data
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Add("User-Agent", "RateChecker/v0.01");
 
-            var stringTask = client.GetStringAsync($"https://eservices.mas.gov.sg/api/action/datastore/search.json?resource_id=5f2b18a8-0883-4769-a635-879c63d3caac&limit=500&between[end_of_month]={fromDate},{toDate}");
+            var stringTask = client.GetStringAsync(Helpers.Config.WebURL(fromDate, toDate));
 
             var msg = await stringTask;
 

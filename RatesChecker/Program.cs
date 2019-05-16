@@ -18,7 +18,7 @@ namespace RatesChecker
             [Option('f', "from", Required = true, HelpText = "From Date in YYYYY-MM")]
             public string fromDate { get; set; }
 
-            [Option('t', "to", Required = true, HelpText = "To Date in YYYYY-MM")]
+            [Option('t', "to", Required = false, HelpText = "To Date in YYYYY-MM")]
             public string toDate { get; set; }
         }
 

@@ -43,8 +43,8 @@ namespace RatesChecker.Services
 
             foreach (var rate in rateList)
             {
-                totalFcRates += rate.fc_savings_deposits;
-                totalBankRates += rate.banks_savings_deposits;
+                totalFcRates += rate.fc_savings_deposits ?? 0;
+                totalBankRates += rate.banks_savings_deposits ?? 0;
             }
 
             AverageRateViewModel vm = new AverageRateViewModel();
@@ -66,8 +66,8 @@ namespace RatesChecker.Services
             double add5 = 0;
             foreach (var rate in rateList)
             {
-                add2 += counter * rate.banks_savings_deposits;
-                add3 += rate.banks_savings_deposits;
+                add2 += counter * rate.banks_savings_deposits ?? 0;
+                add3 += rate.banks_savings_deposits ?? 0;
                 add4 += counter * counter;
                 add5 += counter;
                 counter++;
